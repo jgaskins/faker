@@ -6,7 +6,7 @@ module Faker
     alias Any = String | Int32 | Float64 | Time
 
     macro uniquify_builder(attribute_name, *modified_method_attributes)
-      @@__unique_vals_for_{{attribute_name}} = Array(Any).new
+      @@__unique_vals_for_{{attribute_name}} = Set(Any).new
 
       def self.unique_{{attribute_name}}({% if !modified_method_attributes.empty? %}{{*modified_method_attributes}},{% end %} max_retries = 10_0000)
         max_retries.times do |t|
